@@ -1,2 +1,22 @@
+sudo: required
+services:
+  - docker
+
 before_install:
-  - gem install rake
+  - docker build -t gummadille010/docker-react -f Dockerfile.dev .
+  
+script:
+  - docker run gummadille010/docker-react npm run test -- --coverage  
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
+  region: "us-east-1"  
+  app: "docker-react1"
+  env: "DockerReact1-env"
+  bucket_name: "elasticbeanstalk-us-east-1-380306576829"
+  bucket_path: "docker-react1"
+  on:
+    branch: master	
