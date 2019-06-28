@@ -1,4 +1,2 @@
 before_install:
-  - echo "BEFORE INSTALL START"
-  - gem install bundler
-  - echo "BEFORE INSTALL END"
+  - gem install rake
